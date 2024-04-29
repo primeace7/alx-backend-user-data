@@ -1,0 +1,5 @@
+# Ignore EMACS backup files
+*~
+
+# Ignore python cache folder
+__pycache__
