@@ -6,10 +6,10 @@ import logging
 from mysql.connector import connection
 import os
 
-PII_FIELDS = ['name', 'email', 'phone', 'ssn', 'password']
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
-def filter_datum(fields: List, redaction: str, message: str,
+def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     '''find and replace sensitive fields in log data with regex'''
     for field in fields:
@@ -26,7 +26,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -39,13 +39,13 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     '''Create and return a Logger object'''
-    logger = logging.Logger('user_data')
-    logger.propagate = False
-    logger.setLevel(logging.INFO)
+    user_data = logging.Logger('user_data')
+    user_data.propagate = False
+    user_data.setLevel(logging.INFO)
     handle = logging.StreamHandler()
     handle.setFormatter(RedactingFormatter(PII_FIELDS))
-    logger.addHandler(handle)
-    return logger
+    user_data.addHandler(handle)
+    return user_data
 
 
 def get_db() -> connection.MySQLConnection:
