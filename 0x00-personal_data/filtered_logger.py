@@ -3,7 +3,7 @@
 import re
 from typing import List
 import logging
-from mysql.connector import connection
+from mysql.connector import (connection)
 import os
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
@@ -39,7 +39,7 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     '''Create and return a Logger object'''
-    user_data = logging.Logger('user_data')
+    user_data = logging.Logger("user_data")
     user_data.propagate = False
     user_data.setLevel(logging.INFO)
     handle = logging.StreamHandler()
