@@ -73,12 +73,8 @@ class BasicAuth(Auth):
     def current_user(self, request=None) -> TypeVar('User'):
         ''' Retrieve current user for a request from storage'''
         auth_header = self.authorization_header(request)
-        print(f'auth header: {auth_header}')
         auth_64 = self.extract_base64_authorization_header(auth_header)
-        print(f'extracted auth in base 64: {auth_64}')
         auth_raw = self.decode_base64_authorization_header(auth_64)
-        print(f'Raw auth decoded in base 64: {auth_raw}')
         user_login = self.extract_user_credentials(auth_raw)
-        print(f'Extracted user login detals: {user_login}')
         user = self.user_object_from_credentials(user_login[0], user_login[1])
         return user

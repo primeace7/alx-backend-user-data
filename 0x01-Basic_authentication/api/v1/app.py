@@ -25,6 +25,8 @@ elif auth == 'basic_auth':
 
 @app.before_request
 def is_auth() -> None:
+    '''Determine if the current request requires
+    authentication from user'''
     checklist = ['/api/v1/status/',
                  '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth is None or not auth.require_auth(request.path, checklist):
