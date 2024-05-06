@@ -58,17 +58,24 @@ class BasicAuth(Auth):
         elif user_pwd is None or not isinstance(user_pwd, str):
             return None
 
-        if User.count() == 0:
+        try:
+            if User.count() == 0:
+                return None
+            users = User.search({'email': user_email})
+        except KeyError:
             return None
-        users = User.search({'email': user_email})
+
         if len(users) == 0:
             return None
 
-        result = []
-        for user in users:
-            if user.is_valid_password(user_pwd):
-                result.append(user)
-        return result
+        to_delete = []
+        for idx in range(len(users)):
+            if not users[idx].is_valid_password(user_pwd):
+                to_delete.append(idx)
+        for i in to_delete:
+            del users[i]
+                
+        return users[0] if len(users) else None
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' Retrieve current user for a request from storage'''
