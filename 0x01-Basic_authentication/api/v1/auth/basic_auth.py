@@ -74,7 +74,7 @@ class BasicAuth(Auth):
                 to_delete.append(idx)
         for i in to_delete:
             del users[i]
-                
+
         return users[0] if len(users) else None
 
     def current_user(self, request=None) -> TypeVar('User'):
