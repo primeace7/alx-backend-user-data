@@ -33,8 +33,8 @@ def login():
         resp.set_cookie(cookie_name, session_id)
         return resp
 
-@app_views.route('auth_session/logout', methods=['DELETE'],
-                 strict_slashes=False)
+@app_views.route(
+    'auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def logout():
     '''Delete session cookies and log a user out
     '''
