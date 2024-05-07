@@ -37,7 +37,7 @@ def is_auth() -> None:
     if auth.session_cookie(request) is None and\
        auth.authorization_header(request) is None:
         if auth.session_cookie(request) is None:
-            abort(403)
+            abort(401)
         else:
             abort(401)
     if auth.current_user(request) is None:
