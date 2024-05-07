@@ -44,6 +44,7 @@ def is_auth() -> None:
         abort(403)
     request.current_user = auth.current_user(request)
 
+
 @app.errorhandler(403)
 def forbidden(error) -> str:
     ''' Forbidden access error handler
