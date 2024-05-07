@@ -36,11 +36,13 @@ def is_auth() -> None:
         return
     if auth.session_cookie(request) is None and\
        auth.authorization_header(request) is None:
-        abort(401)
+        if auth.session_cookie(request) is None:
+            abort(403)
+        else:
+            abort(401)
     if auth.current_user(request) is None:
-        abort(401)
+        abort(403)
     request.current_user = auth.current_user(request)
-
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
