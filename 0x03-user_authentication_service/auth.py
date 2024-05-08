@@ -83,7 +83,7 @@ class Auth:
         '''Given a user_id, destroy the associated user's session
         '''
         try:
-            user = self._db.find_user_by('user_id'=int(user_id))
+            user = self._db.find_user_by(id=user_id)
             self._db.update_user(user.id, session_id=None)
             return None
 
